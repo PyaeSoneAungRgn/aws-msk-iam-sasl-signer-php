@@ -7,7 +7,7 @@ For more information about Amazon MSK IAM Authentication, please check out [the 
 ## Installation
 
 ```bash
-composer require PyaeSoneAungRgn/aws-msk-iam-sasl-signer-php
+composer require pyaesoneaung/aws-msk-iam-sasl-signer-php
 ```
 
 ## Usage
