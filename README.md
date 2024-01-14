@@ -20,10 +20,49 @@ $awsMskIamSaslSigner = new AwsMskIamSaslSigner(
 );
 $token = $awsMskIamSaslSigner->generateToken();
 
-[
-    'token' => 'aHR0cHM6Ly91cy1lYXN0LTEuYW1hem9uYXdzLmNvbS8_QWN0aW9uPWthZmthLWNsdXN0ZXIlM0FDb25uZWN0JlgtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9dGVzdEFjY2Vzc0tleUlkJTJGMjAyNDAxMTQlMkZ1cy1lYXN0LTElMkZrYWZrYS1jbHVzdGVyJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAxMTRUMDkxNjUyWiZYLUFtei1FeHBpcmVzPTkwMCZYLUFtei1TaWduYXR1cmU9NTQ3Yjk3YWE1OTA5ZjBmYzFkYTNjZTU4MmNkNjY2MWU5OGZhYTAzMzk3YzExYzFjZTc4MTA4NGVjYmYzN2JkZSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3Q',
-    'expiryTime' => 1705230500000
-]
+// [
+//     'token' => 'aHR0cHM6Ly9rYWZrYS5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tLz9BY3Rpb249a2Fma2EtY2x1c3RlciUzQUNvbm5lY3QmVXNlci1BZ2VudD1hd3MtbXNrLWlhbS1zYXNsLXNpZ25lci1waHAlMkYxLjAuMCZYLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPXRlc3RBY2Nlc3NLZXlJZCUyRjIwMjQwMTE0JTJGYXAtc291dGhlYXN0LTElMkZrYWZrYS1jbHVzdGVyJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAxMTRUMTIyNTQ5WiZYLUFtei1FeHBpcmVzPTkwMCZYLUFtei1TaWduYXR1cmU9NWUxYzY4YzI5NDRkN2I2NjY0ZDkyMTJkMGJlMDQ1NTYyYzc5Y2U0NTZhNGJjZjg2YTQ3NTk3NDcxMjI3NTY3YyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3Q',
+//     'expiryTime' => 1705236049000
+// ]
+```
+
+## Kafka Usage (php-simple-kafka-client)
+
+Kafka usage for [https://github.com/php-kafka/php-simple-kafka-client](https://github.com/php-kafka/php-simple-kafka-client)
+
+```php
+use PyaeSoneAung\AwsMskIamSaslSigner\AwsMskIamSaslSigner;
+use SimpleKafkaClient\Configuration;
+use SimpleKafkaClient\Producer;
+
+$conf = new Configuration();
+$conf->set('metadata.broker.list', 'kafka:9092');
+$conf->set('security.protocol', 'SASL_SSL');
+$conf->set('sasl.mechanisms', 'OAUTHBEARER');
+
+$producer = new Producer($conf);
+
+$awsMskIamSaslSigner = new AwsMskIamSaslSigner(
+    'us-east-1',
+    'testAccessKeyId',
+    'testSecretAccessKey'
+);
+$token = $awsMskIamSaslSigner->generateToken();
+$producer->setOAuthBearerToken($token['token'], $token['expiryTime'], 'principalClaimName=azp');
+
+$topic = $producer->getTopicHandle('topic-name');
+
+$topic->producev(
+    RD_KAFKA_PARTITION_UA,
+    RD_KAFKA_MSG_F_BLOCK,
+    'value',
+    'key',
+    ['header-key' => 'header-value']
+);
+
+$producer->poll(0);
+
+$result = $producer->flush(20000);
 ```
 
 ## Testing
