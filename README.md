@@ -2,6 +2,8 @@
 
 `aws-msk-iam-sasl-signer-php` is the AWS MSK IAM SASL Signer for PHP programming language.
 
+For more information about Amazon MSK IAM Authentication, please check out [the Amazon blog post](https://aws.amazon.com/blogs/big-data/amazon-msk-iam-authentication-now-supports-all-programming-languages/).
+
 ## Installation
 
 ```bash
