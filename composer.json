@@ -19,7 +19,7 @@
         "aws/aws-sdk-php": "^3.296"
     },
     "require-dev": {
-        "pestphp/pest": "^2.15",
+        "pestphp/pest": "^3.5",
         "laravel/pint": "^1.0",
         "spatie/ray": "^1.28"
     },
