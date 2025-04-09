@@ -1,3 +1,6 @@
+[![Packagist Version](https://img.shields.io/packagist/v/pyaesoneaung/aws-msk-iam-sasl-signer-php)](https://packagist.org/packages/pyaesoneaung/aws-msk-iam-sasl-signer-php)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/pyaesoneaung/aws-msk-iam-sasl-signer-php)](https://packagist.org/packages/pyaesoneaung/aws-msk-iam-sasl-signer-php)
+
 # AWS MSK IAM SASL Signer for PHP 
 
 `aws-msk-iam-sasl-signer-php` is the AWS MSK IAM SASL Signer for PHP programming language.
