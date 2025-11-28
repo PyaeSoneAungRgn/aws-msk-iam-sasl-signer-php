@@ -15,8 +15,7 @@ class AwsMskIamSaslSigner
         private readonly string $accessKeyId,
         private readonly string $secretAccessKey,
         private readonly ?string $sessionToken = null
-    ) {
-    }
+    ) {}
 
     public function generateToken(?int $expiryInSeconds = 900): array
     {

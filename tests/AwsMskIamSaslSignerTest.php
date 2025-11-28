@@ -29,7 +29,7 @@ it('includes session token when provided', function () {
 
     // Decode the returned token back into a URL to inspect the query string
     $decodedUrl = base64_decode(strtr($token['token'], '-_', '+/'));
-    $parts      = parse_url($decodedUrl);
+    $parts = parse_url($decodedUrl);
     parse_str($parts['query'] ?? '', $query);
 
     expect($query)->toHaveKey('X-Amz-Security-Token');
