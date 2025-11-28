@@ -14,7 +14,7 @@ class AwsMskIamSaslSigner
         private readonly string $region,
         private readonly string $accessKeyId,
         private readonly string $secretAccessKey,
-        private readonly ?string $sessionToken = null,
+        private readonly ?string $sessionToken = null
     ) {
     }
 
