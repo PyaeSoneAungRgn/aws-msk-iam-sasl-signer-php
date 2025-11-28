@@ -8,12 +8,13 @@ use GuzzleHttp\Psr7;
 
 class AwsMskIamSaslSigner
 {
-    const VERSION = '1.0.0';
+    public const VERSION = '1.0.0';
 
     public function __construct(
         private readonly string $region,
         private readonly string $accessKeyId,
-        private readonly string $secretAccessKey
+        private readonly string $secretAccessKey,
+        private readonly ?string $sessionToken = null,
     ) {
     }
 
@@ -21,7 +22,7 @@ class AwsMskIamSaslSigner
     {
         $signatureV4 = new SignatureV4('kafka-cluster', $this->region);
 
-        $credentials = new Credentials($this->accessKeyId, $this->secretAccessKey);
+        $credentials = new Credentials($this->accessKeyId, $this->secretAccessKey, $this->sessionToken);
 
         $host = "kafka.{$this->region}.amazonaws.com";
 
